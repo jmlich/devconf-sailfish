@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Name=DevConf.cz
+Icon=rh-devconf
+Exec=rh-devconf
+
