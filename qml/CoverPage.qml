@@ -115,7 +115,8 @@ CoverBackground {
 
 
     function updateFilter() {
-        currentEventsModel.clear()
+        currentEventsModel.clear();
+        upcommingEventsModel.clear();
         var now = Math.floor(new Date().getTime()/1000);
 
         for (var i = 0; i < allEventsModel.count; i++) {
