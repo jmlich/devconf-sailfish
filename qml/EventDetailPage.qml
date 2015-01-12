@@ -24,17 +24,6 @@ Page {
         anchors.fill: parent;
         contentHeight: column.height
 
-
-
-//        PullDownMenu {
-//            MenuItem {
-//                text: qsTr("Add to calendar")
-//                onClicked: {
-//                    console.log("hello world")
-//                }
-//            }
-//        }
-
         Column {
             id: column
 
@@ -84,7 +73,16 @@ Page {
                 model: usersModel;
                 delegate: BackgroundItem{
 
-                    height: contentItem.childrenRect.height
+                    height: Math.max(avatarImage.paintedHeight, nameLabel.paintedHeight + companyLabel.paintedHeight + positionLabel.paintedHeight + 2*Theme.paddingMedium) + 2 * Theme.paddingMedium
+
+
+                    Image {
+                        id: dummyImage;
+                        z: avatarImage.z -1;
+                        anchors.fill: avatarImage;
+                        source: "./blank_boy.png"
+                        visible: avatarImage.status !== Image.Ready;
+                    }
 
                     Image {
                         id: avatarImage;

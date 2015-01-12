@@ -7,11 +7,23 @@ CoverBackground {
 
     property real coundownTarget
     property bool now_true_next_false: true;
+    property alias currentEventsModelAlias: currentEventsModel
+    property alias upcommingEventsModelAlias: upcommingEventsModel
+
+    signal forceUpdateDataSource();
+
+//    Image {
+//        anchors.fill: parent;
+//        source: "devconf-cover.png"
+//        opacity: 0.3
+//        visible: countdownText.visible;
+//    }
 
     Label {
         id: countdownText
         anchors.centerIn: parent;
-        text: qsTr("Loading ...")
+        //% "Loading ..."
+        text: qsTrId("cover-loading")
         horizontalAlignment: Text.AlignHCenter
     }
 
@@ -21,7 +33,8 @@ CoverBackground {
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.Wrap
         visible: !countdownText.visible && now_true_next_false && (currentEventsModel.count == 0)
-        text: qsTr("Currently is not running any lecture")
+        //% "No running event"
+        text: qsTrId("cover-no-running-event")
     }
 
     Label {
@@ -30,7 +43,8 @@ CoverBackground {
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.Wrap
         visible: !countdownText.visible && !now_true_next_false && (upcommingEventsModel.count == 0)
-        text: qsTr("In near future is not scheduled any lecture")
+        //% "See you next year"
+        text: qsTrId("cover-no-upcomming-event")
     }
 
 
@@ -83,6 +97,7 @@ CoverBackground {
             iconSource: "image://theme/icon-cover-next"
             onTriggered: {
                 now_true_next_false = false;
+                forceUpdateDataSource();
             }
         }
 
@@ -95,6 +110,7 @@ CoverBackground {
             iconSource: "image://theme/icon-cover-previous"
             onTriggered: {
                 now_true_next_false = true;
+                forceUpdateDataSource();
             }
         }
 
@@ -104,6 +120,7 @@ CoverBackground {
         var sessions = d.sessions
         allEventsModel.clear();
         for (var i = 0; i < sessions.length; i++) {
+            sessions[i].speakers_str = F.make_speakers_str(sessions[i].speakers);
             sessions[i].speakers_0 = (sessions[i].speakers[0] !== undefined) ? (sessions[i].speakers[0] + "\n") : ""
 
             sessions[i].speakers = JSON.stringify(sessions[i].speakers);
@@ -119,6 +136,7 @@ CoverBackground {
         upcommingEventsModel.clear();
         var now = Math.floor(new Date().getTime()/1000);
 
+        var counter = 0;
         for (var i = 0; i < allEventsModel.count; i++) {
             var item = allEventsModel.get(i);
             if (item.event_start < now && item.event_end > now) {
@@ -126,6 +144,10 @@ CoverBackground {
             }
             if (item.event_start > now && item.event_end > now) {
                 upcommingEventsModel.append(item)
+                counter++;
+                if (counter > 5) {
+                    break;
+                }
             }
 
         }
@@ -143,10 +165,16 @@ CoverBackground {
                 countdownText.visible = !F.isSameDay(coundownTarget);
                 if (countdownText.visible) {
                     countdownText.text = F.formatCountdown(coundownTarget)
-                } else {
-                    updateFilter();
                 }
+                updateFilter();
+                forceUpdateDataSource();
             }
+        }
+    }
+
+    onVisibleChanged: {
+        if (visible) {
+            updateFilter();
         }
     }
 }

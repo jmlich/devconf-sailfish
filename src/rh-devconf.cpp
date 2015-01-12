@@ -34,22 +34,50 @@
 
 #include <sailfishapp.h>
 #include <QtQml>
+#include <QGuiApplication>
+#include <QQmlEngine>
+#include <QQuickView>
+#include <QQmlContext>
+
 #include "filereader.h"
+#include "networkaccessmanagerfactory.h"
+#include "downloader.h"
 
 
 
 int main(int argc, char *argv[])
 {
-    // SailfishApp::main() will display "qml/template.qml", if you need more
-    // control over initialization, you can use:
-    //
-    //   - SailfishApp::application(int, char *[]) to get the QGuiApplication *
-    //   - SailfishApp::createView() to get a new QQuickView * instance
-    //   - SailfishApp::pathTo(QString) to get a QUrl to a resource file
-    //
-    // To display the view, call "show()" (will show fullscreen on device).
-    qmlRegisterType<FileReader>("cz.mlich", 1, 0, "FileReader");
+    NetworkAccessManagerFactory namFactory;
 
-    return SailfishApp::main(argc, argv);
+    QGuiApplication* app = SailfishApp::application(argc, argv);
+    QQuickView* view = SailfishApp::createView();
+
+
+    qmlRegisterType<FileReader>("cz.mlich", 1, 0, "FileReader");
+    qmlRegisterType<Downloader>("cz.mlich", 1, 0, "Downloader");
+
+
+    QTranslator translator;
+
+    if (translator.load(QLatin1String("rh-devconf_") + QLocale::system().name(), SailfishApp::pathTo(QString("i18n")).toLocalFile())) {
+        app->installTranslator(&translator);
+        view->rootContext()->setContextProperty("locale", QLocale::system().bcp47Name());
+    } else {
+        if (translator.load(QLatin1String("rh-devconf_en_US") , SailfishApp::pathTo(QString("i18n")).toLocalFile())) {
+            app->installTranslator(&translator);
+        }
+        view->rootContext()->setContextProperty("locale","en");
+    }
+
+    view->rootContext()->setContextProperty("IMAGE_CACHE_FOLDER", "file://" +QStandardPaths::writableLocation(QStandardPaths::DataLocation) );
+
+
+    view->engine()->setNetworkAccessManagerFactory(&namFactory);
+    view->setSource(SailfishApp::pathTo("qml/rh-devconf.qml"));
+    view->showFullScreen();
+
+
+
+    return app->exec();
 }
 

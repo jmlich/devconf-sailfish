@@ -1,38 +1,67 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import "functions.js" as F;
 
 BackgroundItem {
 
-    property alias title: rssTitleLabel.text
-    property alias description: rssDescriptionLabel.text
-    property int date
-    property url link
-
     id: delegate
 
+    property string title: ""
+    property string description: ""
+    property int date;
+    property url link;
+    property alias img: avatarImage.source;
 
-    height: contentItem.childrenRect.height + Theme.paddingLarge
+    height: Math.max(rssDateLabel.paintedHeight + rssDescriptionLabel.paintedHeight + 2 * Theme.paddingLarge, 2 * Theme.paddingLarge + avatarImage.height)
 
-    Label {
-        id: rssTitleLabel
+
+    Image {
+        id: dummyImage;
+        z: avatarImage.z -1;
+        anchors.fill: avatarImage;
+        source: "./blank_boy.png"
+        visible: avatarImage.status !== Image.Ready;
+    }
+
+    Image {
+
+        id: avatarImage;
+        z: delegate.z+2
+        anchors.left: parent.left
         anchors.top: parent.top;
-        anchors.left: parent.left;
-        anchors.right: parent.right
-        anchors.margins: Theme.paddingLarge;
+        width: 80;
+        height: 80;
+        anchors.margins: Theme.paddingMedium;
+        fillMode: Image.PreserveAspectCrop;
 
-
-
-        color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor;
-        wrapMode: Text.Wrap;
-        font.pixelSize: Theme.fontSizeMedium
 
     }
 
+
+    Label {
+        id: rssDescriptionLabel
+        anchors.top: parent.top;
+        anchors.left: avatarImage.right;
+        anchors.right: parent.right;
+        anchors.margins: Theme.paddingMedium;
+
+        color: delegate.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor;
+        wrapMode: Text.Wrap;
+        font.pixelSize: Theme.fontSizeSmall
+
+        textFormat: Text.RichText;
+
+        text: "<b>" + delegate.title + "</b> " + delegate.description
+
+    }
+
+
     Label {
         id: rssDateLabel
-        anchors.top: rssTitleLabel.bottom;
-        anchors.left: parent.left;
+        anchors.top: rssDescriptionLabel.bottom;
+        anchors.left: avatarImage.right;
         anchors.right: parent.right;
+        anchors.topMargin: Theme.paddingMedium
         anchors.leftMargin: Theme.paddingLarge;
         anchors.rightMargin: Theme.paddingLarge;
         horizontalAlignment: Text.AlignRight
@@ -41,23 +70,11 @@ BackgroundItem {
         color: delegate.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor;
         wrapMode: Text.Wrap;
         font.pixelSize: Theme.fontSizeMedium
-        text: Format.formatDate(new Date(date*1000), Formatter.TimepointRelative)
+        text: F.format_time_full(date);
     }
 
-    Label {
-        id: rssDescriptionLabel
-        anchors.top: rssDateLabel.bottom;
-        anchors.left: parent.left;
-        anchors.right: parent.right;
-        anchors.margins: Theme.paddingLarge;
 
 
-        color: delegate.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor;
-        wrapMode: Text.Wrap;
-        font.pixelSize: Theme.fontSizeSmall
-
-
-    }
     onClicked: {
         Qt.openUrlExternally(link)
     }

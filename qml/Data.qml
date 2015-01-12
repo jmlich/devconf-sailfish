@@ -1,6 +1,5 @@
 import QtQuick.LocalStorage 2.0 as Sql
 import QtQuick 2.0
-import cz.mlich 1.0
 
 Item {
 
@@ -15,9 +14,6 @@ Item {
 
     //    property variant secondPage
 
-    FileReader {
-        id: filereader
-    }
 
 
 
@@ -59,7 +55,8 @@ Item {
     }
 
     function init_data() {
-        lastUpdate = configGet("lastUpdate", 0);
+        lastUpdate = parseInt(configGet("lastUpdate", 0), 10);
+
         if (lastUpdate === 0) {
             read_static();
         } else {
@@ -94,10 +91,7 @@ Item {
 
     function check_updates() {
         console.log("check updates")
-//        var url = "http://pcmlich.fit.vutbr.cz/devconf/data_ts.php";
-        var url = "http://pcmlich.fit.vutbr.cz/devconf/?json_ts=1";
-
-
+        var url = "http://devconf.cz/wall/sched.org/?ts=1";
 
         var http = new XMLHttpRequest()
         http.open("GET", url, true)
@@ -108,11 +102,17 @@ Item {
                 if (http.status == 200) {
 
                     status = "idle"
+                    try {
                     var internet_timestamp = JSON.parse(http.responseText);
+                    } catch (e) {
+                        status = "exception"
+                    }
+
                     if (internet_timestamp > lastUpdate) {
                         console.log("lastUpdate is old "+ internet_timestamp + " > " + lastUpdate)
                         download();
                     }
+
                 } else { // offline or error while downloading
                     status = "offline"
                     console.log("error downloading in check_updates()")
@@ -130,7 +130,8 @@ Item {
     function download() {
         console.log("data download")
 
-        var url = "http://pcmlich.fit.vutbr.cz/devconf/data.json";
+        var url = "http://devconf.cz/wall/sched.org/?json";
+
 
         var http = new XMLHttpRequest()
         http.open("GET", url, true)
@@ -167,6 +168,7 @@ Item {
 
         mainPage.reload(data);
         schedulePage.reload(data)
+        mapPage.reload(data);
         coverPage.reload(data)
 
         coverPage.coundownTarget = data.days[0]
