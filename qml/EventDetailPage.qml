@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "functions.js" as F
+import "sha1.js" as SHA
 
 
 Page {
@@ -16,13 +17,47 @@ Page {
     property alias room: roomLabel.text
     property alias roomColor: roomLabel.color
 
+    property bool inFavorites: false;
+
+    property string hash;
+
     ListModel {
         id: usersModel;
     }
 
+    signal addToFavorites(string hash);
+    signal removeFromFavorites(string hash);
+
+
     SilicaFlickable {
         anchors.fill: parent;
         contentHeight: column.height
+
+        PullDownMenu {
+            MenuItem {
+                text: inFavorites ?
+                          //% "Remove from favorites
+                          qsTrId("event-detail-remove-from-favorites") :
+                          //% "Add to favorites"
+                          qsTrId ("event-detail-add-to-favorites")
+                onClicked: {
+                    if (inFavorites) {
+                        removeFromFavorites(hash);
+                        inFavorites = false;
+                    } else {
+                        addToFavorites(hash);
+                        inFavorites = true;
+                    }
+                }
+
+            }
+//            MenuItem {
+//                text:
+//                    //% "Add to calendar";
+//                    qsTrId ("event-detail-add-to-calendar")
+//            }
+        }
+
 
         Column {
             id: column

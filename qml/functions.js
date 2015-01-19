@@ -71,7 +71,7 @@ function format_time_full(unix_timestamp) {
     var Hi = pad2(hours) + ":" +pad2(minutes);
 
     if (days < 1) {
-        //% "Today";
+        //% "Today"
         return qsTrId("daysofweek-today") + " " + Hi;
     } else if (days < 2) {
         //% "Yesterday"

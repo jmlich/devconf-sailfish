@@ -92,7 +92,7 @@ Page {
                     text: qsTrId("section-about-map")
                     anchors.verticalCenter: parent.verticalCenter
 
-                    color: mapDelegate.highlighted ? Theme.highlightColor : Theme.primaryColor;
+                    color: mapDelegate.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
                     wrapMode: Text.Wrap;
                     font.pixelSize: Theme.fontSizeMedium
 
@@ -124,7 +124,7 @@ Page {
 
                     }
                     onClicked: {
-
+                        schedulePage.filter_favorites = false;
                         schedulePage.filter_start = timestamp
                         schedulePage.filter_end = timestamp + 24 * 3600
                         schedulePage.updateFilter();
@@ -133,6 +133,28 @@ Page {
                     }
 
                 }
+            }
+
+            BackgroundItem {
+                id: favoritesDelegate
+                visible: (schedulePage.favoritesModel.length > 0)
+                Label {
+                    x: Theme.paddingLarge
+                    //% "Favorites"
+                    text: qsTrId("section-favorites")
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: favoritesDelegate.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
+
+                    wrapMode: Text.Wrap;
+                    font.pixelSize: Theme.fontSizeMedium
+
+                }
+                onClicked: {
+                    schedulePage.filter_favorites = true;
+                    schedulePage.updateFilter();
+                    pageStack.push(schedulePage)
+                }
+
             }
 
             SectionHeader {
@@ -166,6 +188,9 @@ Page {
                             var detail = dataSource.getSpeakerDetail(speakersArray[i])
                             eventDetailPage.um.append(detail)
                         }
+                        eventDetailPage.hash = model.hash;
+                        eventDetailPage.inFavorites = schedulePage.isInFavorites(eventDetailPage.hash);
+
                         pageStack.push(eventDetailPage);
                     }
 
@@ -182,7 +207,7 @@ Page {
                 id: rssRepeater
                 model: rssModel
                 delegate: RssItemDelegate {
-//                    img: (model.avatar !== undefined) ? model.avatar : ""
+                    //                    img: (model.avatar !== undefined) ? model.avatar : ""
                     img: model.avatar;
                     title: model.title
                     description: model.description

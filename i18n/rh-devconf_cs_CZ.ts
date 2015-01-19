@@ -107,5 +107,21 @@
         <source>Map</source>
         <translation>Mapa</translation>
     </message>
+    <message id="event-detail-remove-from-favorites">
+        <source>Remove from favorites</source>
+        <translation>Odstranit z oblíbených</translation>
+    </message>
+    <message id="event-detail-add-to-favorites">
+        <source>Add to favorites</source>
+        <translation>Přidat do oblíbených</translation>
+    </message>
+    <message id="section-favorites">
+        <source>Favorites</source>
+        <translation>Oblíbené</translation>
+    </message>
+    <message id="schedule-page-header-favorites">
+        <source>Favorites</source>
+        <translation>Oblíbené</translation>
+    </message>
 </context>
 </TS>

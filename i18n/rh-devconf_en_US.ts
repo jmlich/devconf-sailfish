@@ -106,5 +106,21 @@
         <source>Map</source>
         <translation>Map</translation>
     </message>
+    <message id="event-detail-remove-from-favorites">
+        <source>Remove from favorites</source>
+        <translation>Remove from favorites</translation>
+    </message>
+    <message id="event-detail-add-to-favorites">
+        <source>Add to favorites</source>
+        <translation>Add to favorites</translation>
+    </message>
+    <message id="section-favorites">
+        <source>Favorites</source>
+        <translation>Favorites</translation>
+    </message>
+    <message id="schedule-page-header-favorites">
+        <source>Favorites</source>
+        <translation>Favorites</translation>
+    </message>
 </context>
 </TS>

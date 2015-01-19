@@ -8,15 +8,13 @@ Page {
 
     property int filter_start: 0;
     property int filter_end;
-    property string headerTitle
+    property bool filter_favorites: false;
+    property string dayName;
 
     onFilter_startChanged: {
         var date = new Date(filter_start* 1000);
-        headerTitle= F.dayOfWeek(date.getDay())
+        dayName = F.dayOfWeek(date.getDay())
     }
-
-
-
 
     SilicaListView {
         id: listView
@@ -26,7 +24,10 @@ Page {
 
         header: PageHeader {
             id: pageHeader
-            title: headerTitle
+            title: filter_favorites ?
+                       //% "Favorites"
+                       qsTrId("schedule-page-header-favorites") :
+                       dayName
         }
         delegate: ScheduleDelegate {
             startTime: model.event_start;
@@ -45,6 +46,8 @@ Page {
                 eventDetailPage.endTime = F.format_time(parseInt(model.event_end, 10));
                 eventDetailPage.room = model.room;
                 eventDetailPage.roomColor = model.room_color
+                eventDetailPage.hash = model.hash;
+                eventDetailPage.inFavorites = isInFavorites(eventDetailPage.hash);
                 eventDetailPage.um.clear()
                 var speakersArray = JSON.parse(model.speakers);
                 for (var i = 0; i < speakersArray.length; i++) {
@@ -65,16 +68,34 @@ Page {
     ListModel {
         id: filteredEventModel
     }
-
+    property variant favoritesModel: [];
+    signal saveFavorites(variant arr);
 
     function updateFilter() {
         filteredEventModel.clear()
-        for (var i = 0; i < eventModel.count; i++) {
-            var item = eventModel.get(i);
-            if (item.event_start > filter_start && item.event_start < filter_end) {
-                filteredEventModel.append(item)
+
+        if (filter_favorites) {
+
+            for (var i = 0; i < eventModel.count; i++) {
+                var item = eventModel.get(i);
+                if ( isInFavorites(item.hash)) {
+                    filteredEventModel.append(item)
+                }
             }
+
+        } else { // filter according to time
+
+            for (var i = 0; i < eventModel.count; i++) {
+                var item = eventModel.get(i);
+
+                if (item.event_start > filter_start && item.event_start < filter_end) {
+                    filteredEventModel.append(item)
+                }
+            }
+
         }
+
+
     }
 
 
@@ -88,6 +109,53 @@ Page {
         }
 
     }
+
+    function reloadFavorites(f) {
+        favoritesModel = f;
+    }
+
+    function isInFavorites(hash) {
+        for (var i = 0; i < favoritesModel.length; i++) {
+            var item = favoritesModel[i];
+            if (item === hash) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function addToFavorites(hash) {
+        var obj = [];
+        for (var i = 0; i < favoritesModel.length; i++) {
+            var item = favoritesModel[i];
+            obj.push(item);
+        }
+
+        obj.push(hash)
+        favoritesModel = obj;
+
+        saveFavorites(favoritesModel);
+        updateFilter();
+
+    }
+
+    function removeFromFavorites(hash) {
+        var obj = [];
+        var list = favoritesModel;
+        for (var i = 0; i < list.length; i++) {
+            var item = list[i];
+            if (item !== hash) {
+                obj.push(item);
+            }
+        }
+        favoritesModel = obj;
+
+        saveFavorites(favoritesModel);
+        updateFilter();
+
+    }
+
+
 
 
 }

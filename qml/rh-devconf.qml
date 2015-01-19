@@ -24,10 +24,20 @@ ApplicationWindow
 
     SchedulePage {
         id: schedulePage
+        onSaveFavorites: {
+            dataSource.setFavorites(favoritesModel);
+        }
+
     }
 
     EventDetailPage {
         id: eventDetailPage;
+        onAddToFavorites: {
+            schedulePage.addToFavorites(hash);
+        }
+        onRemoveFromFavorites: {
+            schedulePage.removeFromFavorites(hash);
+        }
     }
 
     MapPage {

@@ -164,16 +164,26 @@ Item {
 
     }
 
+    function getFavorites() {
+        return JSON.parse(configGet("favorites", "[]"));
+    }
+
+    function setFavorites(fav) {
+        configSet("favorites",JSON.stringify(fav));
+    }
+
     function updateUI() {
 
         mainPage.reload(data);
+        schedulePage.reloadFavorites(getFavorites());
         schedulePage.reload(data)
         mapPage.reload(data);
         coverPage.reload(data)
 
+//        favoritesPage.reload()
+
         coverPage.coundownTarget = data.days[0]
 
-//        secondPage.load(data.events);
     }
 
     function getSpeakerDetail(name) {
