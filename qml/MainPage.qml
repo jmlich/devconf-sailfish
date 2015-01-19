@@ -143,7 +143,7 @@ Page {
                     //% "Favorites"
                     text: qsTrId("section-favorites")
                     anchors.verticalCenter: parent.verticalCenter
-                    color: favoritesDelegate.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                    color: favoritesDelegate.highlighted ? Theme.highlightColor : Theme.primaryColor;
 
                     wrapMode: Text.Wrap;
                     font.pixelSize: Theme.fontSizeMedium
