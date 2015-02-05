@@ -29,6 +29,15 @@ Page {
                     map_visible = !map_visible;
                 }
             }
+            MenuItem {
+                visible: map_visible
+                //% "Show current position"
+                text: qsTrId("map-page-show-current-position");
+                onClicked: {
+                    map.setCenterLatLon(map.currentPositionLat, map.currentPositionLon);
+                }
+
+            }
         }
 
         PageHeader {
@@ -87,9 +96,7 @@ Page {
                     }
                     onClicked: {
                         showDetail(model.name, model.description, model.icon, model.lat, model.lon);
-                        map.latitude = lat;
-                        map.longitude = lon;
-
+                        map.setCenterLatLon(lat, lon)
                     }
                 }
             }
@@ -111,8 +118,6 @@ Page {
 
                 remorse.execute(name, function() {
                     showDetail(name, description, icon, lat, lon);
-                    map.latitude = lat;
-                    map.longitude = lon;
                 })
 
             }

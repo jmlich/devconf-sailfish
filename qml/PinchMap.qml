@@ -293,10 +293,10 @@ Rectangle {
         var local = Qt.resolvedUrl(F.getMapTile(localUrl, tx, ty, zoomLevel));
         var remote = F.getMapTile(remoteUrl, tx, ty, zoomLevel);
 
-//        if (!file_reader.file_exists(local)) {
-//            console.log ("wget "+remote + " --output-document=" +local )
-//        }
-//        return remote;
+        //        if (!file_reader.file_exists(local)) {
+        //            console.log ("wget "+remote + " --output-document=" +local )
+        //        }
+        //        return remote;
         return (file_reader.file_exists(local)) ? local : remote
 
     }
@@ -524,7 +524,7 @@ Rectangle {
             property int __firstX: -1;
             property int __firstY: -1;
             property bool __wasClick: false;
-            property int maxClickDistance: 100;
+            property int maxClickDistance: 80;
 
             anchors.fill : parent;
             preventStealing: true;
@@ -539,7 +539,7 @@ Rectangle {
                 pannedManually()
 
                 var distance = F.euclidDistance(targetIndicator.x, targetIndicator.y, mouse.x, mouse.y);
-                if (targetDragable && (distance < 80)) { // dragThreshold
+                if (targetDragable && (distance < maxClickDistance)) { // dragThreshold
                     __draging = true;
                 } else {
                     __isPanning = true;
@@ -553,14 +553,27 @@ Rectangle {
 
             onReleased: {
 
-                // if not panning
-                if (F.euclidDistance(__firstX, __firstY, mouse.x, mouse.y) < 40) {
-                    for (var i = 0; i < places.count; i++) {
-                        var item = places.get(i);
-                        var pos = getScreenpointFromCoord(item.lat, item.lon);
-                        var distance = F.euclidDistance(mouse.x, mouse.y, pos[0], pos[1]);
-                        if (distance < 80) {
+                if (F.euclidDistance(__firstX, __firstY, mouse.x, mouse.y) < 40) { // if not panning
 
+                    // find nearest place
+                    if (places.count > 0) {
+                        var minIndex = 0;
+                        var item = places.get(0);
+                        var screen = getScreenpointFromCoord(item.lat, item.lon);
+                        var distance = F.euclidDistance(mouse.x, mouse.y, screen[0], screen[1]);
+                        var minDistance = distance;
+                        for (var i = 1; i < places.count; i++) {
+                            item = places.get(i)
+                            screen = getScreenpointFromCoord(item.lat, item.lon);
+                            distance = F.euclidDistance(mouse.x, mouse.y, screen[0], screen[1]);
+                            if (distance < minDistance) {
+                                minDistance = distance;
+                                minIndex = i;
+                            }
+                        }
+
+                        if (minDistance < maxClickDistance) {
+                            item = places.get(minIndex);
                             mapItemClicked(item.name, item.description, item.icon, item.lat, item.lon)
                         }
                     }

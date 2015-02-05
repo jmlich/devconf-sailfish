@@ -143,5 +143,9 @@
         <source>Place</source>
         <translation>Place</translation>
     </message>
+    <message id="map-page-show-current-position">
+        <source>Show current position</source>
+        <translation>Show current position</translation>
+    </message>
 </context>
 </TS>

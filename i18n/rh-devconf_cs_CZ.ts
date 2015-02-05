@@ -144,5 +144,9 @@
         <source>Place</source>
         <translation>Místo</translation>
     </message>
+    <message id="map-page-show-current-position">
+        <source>Show current position</source>
+        <translation>Zobrazit současnou polohu</translation>
+    </message>
 </context>
 </TS>
