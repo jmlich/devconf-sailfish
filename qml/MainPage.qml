@@ -3,6 +3,7 @@ import Sailfish.Silica 1.0
 import "functions.js" as F
 
 
+
 Page {
     id: page
 
@@ -82,17 +83,16 @@ Page {
             }
 
 
-
             BackgroundItem {
                 id: mapDelegate
-                visible: false;
+//                visible: false;
                 Label {
                     x: Theme.paddingLarge
-                    //% "Map"
-                    text: qsTrId("section-about-map")
+                    //% "Places"
+                    text: qsTrId("section-about-places")
                     anchors.verticalCenter: parent.verticalCenter
 
-                    color: mapDelegate.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                    color: mapDelegate.highlighted ? Theme.highlightColor : Theme.primaryColor
                     wrapMode: Text.Wrap;
                     font.pixelSize: Theme.fontSizeMedium
 

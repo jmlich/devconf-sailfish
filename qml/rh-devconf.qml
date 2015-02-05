@@ -25,7 +25,7 @@ ApplicationWindow
     SchedulePage {
         id: schedulePage
         onSaveFavorites: {
-            dataSource.setFavorites(favoritesModel);
+            dataSource.configSet("favorites",JSON.stringify(favoritesModel));
         }
 
     }
@@ -42,6 +42,25 @@ ApplicationWindow
 
     MapPage {
         id: mapPage;
+        onShowDetail: {
+            placesDetailPage.name = name;
+            placesDetailPage.description = description;
+            placesDetailPage.image = icon;
+            placesDetailPage.lat = lat;
+            placesDetailPage.lon = lon;
+            pageStack.push(placesDetailPage)
+        }
+    }
+
+    PlaceDetailPage {
+        id: placesDetailPage;
+        onShowOnMap: {
+            mapPage.mapWidget.latitude = lat;
+            mapPage.mapWidget.longitude = lon;
+            mapPage.map_visible = true;
+            pageStack.pop();
+
+        }
     }
 
     PhotoDetailPage {

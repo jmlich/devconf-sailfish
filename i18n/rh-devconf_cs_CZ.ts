@@ -64,8 +64,9 @@
         <translation>O konferenci</translation>
     </message>
     <message id="map-title">
-        <source>Map</source>
-        <translation>Mapa</translation>
+        <source>Places</source>
+        <oldsource>Map</oldsource>
+        <translation>Místa</translation>
     </message>
     <message id="section-header-schedule">
         <source>Schedule</source>
@@ -103,10 +104,6 @@
         <source>Loading ...</source>
         <translation>Načítá se ...</translation>
     </message>
-    <message id="section-about-map">
-        <source>Map</source>
-        <translation>Mapa</translation>
-    </message>
     <message id="event-detail-remove-from-favorites">
         <source>Remove from favorites</source>
         <translation>Odstranit z oblíbených</translation>
@@ -122,6 +119,30 @@
     <message id="schedule-page-header-favorites">
         <source>Favorites</source>
         <translation>Oblíbené</translation>
+    </message>
+    <message id="section-about-places">
+        <source>Places</source>
+        <translation>Místa</translation>
+    </message>
+    <message id="map-page-list">
+        <source>List</source>
+        <translation>Seznam</translation>
+    </message>
+    <message id="map-page-map">
+        <source>Map</source>
+        <translation>Mapa</translation>
+    </message>
+    <message id="place-detail-menu-navigate-to">
+        <source>Navigate to</source>
+        <translation>Navigovat do</translation>
+    </message>
+    <message id="place-detail-menu-show-on-map">
+        <source>Show on map</source>
+        <translation>Zobrazit na mapě</translation>
+    </message>
+    <message id="place-detail-header-place">
+        <source>Place</source>
+        <translation>Místo</translation>
     </message>
 </context>
 </TS>

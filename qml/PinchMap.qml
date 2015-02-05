@@ -1,5 +1,7 @@
 import QtQuick 2.0
 import "functions.js" as F
+import cz.mlich 1.0
+
 
 Rectangle {
     id: pinchmap;
@@ -9,7 +11,7 @@ Rectangle {
     property int maxZoomLevel: 17;
     property int minZoomLevel: 2;
     property int minZoomLevelShowGeocaches: 9;
-    property int tileSize: 256;
+    property int tileSize: 512;
     property int cornerTileX: 32;
     property int cornerTileY: 32;
     property int numTilesX: Math.ceil(width/tileSize) + 2;
@@ -37,8 +39,8 @@ Rectangle {
     property bool pageActive: false;
     property bool mapTileVisible: pageActive
 
-//    onTargetLatChanged: { latitude = targetLat;  }
-//    onTargetLonChanged: { longitude = targetLon; }
+    //    onTargetLatChanged: { latitude = targetLat;  }
+    //    onTargetLonChanged: { longitude = targetLon; }
 
     property double latitude: currentPositionLat ;// FlightData.configGet("currentPositionLat", 49.803575)
     property double longitude: currentPositionLon;// FlightData.configGet("currentPositionLon", 15.475555)
@@ -48,12 +50,14 @@ Rectangle {
     property alias angle: rot.angle
 
     property string remoteUrl: "http://a.tile.openstreetmap.org/%(zoom)d/%(x)d/%(y)d.png";
-    property string localUrl: "~/Maps/OSM/%(zoom)d/%(x)d/%(y)d.png"
+    property string localUrl: "./Maps/OSM/%(zoom)d/%(x)d/%(y)d.png"
 
     property int earthRadius: 6371000
 
     property bool needsUpdate: false;
     property alias places: placesModel;
+
+    signal mapItemClicked(string name, string description, url icon, double lat, double lon);
 
     ListModel {
         id: placesModel;
@@ -286,14 +290,14 @@ Rectangle {
         if (ty < 0 || ty > maxTileNo) {
             return "./images/noimage.png"
         }
-        //        var local = F.getMapTile(localUrl, tx, ty, zoomLevel);
+        var local = Qt.resolvedUrl(F.getMapTile(localUrl, tx, ty, zoomLevel));
         var remote = F.getMapTile(remoteUrl, tx, ty, zoomLevel);
 
-        //            if (!file_reader.file_exists(local)) {
-        //                console.log ("wget "+remote + " --output-document=" +local )
-        //            }
-        return remote;
-        //        return (file_reader.file_exists(local)) ? local : remote
+//        if (!file_reader.file_exists(local)) {
+//            console.log ("wget "+remote + " --output-document=" +local )
+//        }
+//        return remote;
+        return (file_reader.file_exists(local)) ? local : remote
 
     }
 
@@ -380,7 +384,7 @@ Rectangle {
                 Image {
                     id: img;
                     anchors.fill: parent;
-                     onProgressChanged: { progressBar.p = progress }
+                    onProgressChanged: { progressBar.p = progress }
                     source: mapTileVisible ? tileUrl(tileX, tileY) : "";
                     visible: mapTileVisible;
                 }
@@ -440,13 +444,21 @@ Rectangle {
 
     Repeater {
         model: placesModel;
-        delegate: Image {
-            id: placesDelegate
-            source: model.icon;
-            property variant t: getMappointFromCoord(model.lat, model.lon)
-            x: map.x + t[0] - width/2
-            y: map.y + t[1] - height + positionIndicator.width/2
-            smooth: true
+        delegate: Item {
+            Image {
+                id: placesDelegate
+                source: model.icon;
+                property variant t: getMappointFromCoord(model.lat, model.lon)
+                x: map.x + t[0] - width/2
+                y: map.y + t[1] - height;
+                smooth: true
+            }
+            Image {
+                x: placesDelegate.x;
+                y: placesDelegate.y
+                source: "./images/marker-icon.png"
+                visible:( placesDelegate.status !== Image.Ready)
+            }
         }
     }
 
@@ -540,6 +552,21 @@ Rectangle {
             }
 
             onReleased: {
+
+                // if not panning
+                if (F.euclidDistance(__firstX, __firstY, mouse.x, mouse.y) < 40) {
+                    for (var i = 0; i < places.count; i++) {
+                        var item = places.get(i);
+                        var pos = getScreenpointFromCoord(item.lat, item.lon);
+                        var distance = F.euclidDistance(mouse.x, mouse.y, pos[0], pos[1]);
+                        if (distance < 80) {
+
+                            mapItemClicked(item.name, item.description, item.icon, item.lat, item.lon)
+                        }
+                    }
+                }
+
+
                 if (__isPanning) {
                     panEnd();
                 }
@@ -585,17 +612,7 @@ Rectangle {
     }
 
 
-    //    SelectionDialog {
-    //        id: geocacheSelectionDialog
-    //        titleText: "Select geocache"
-    //        model: []
-    //        property variant fullList: []
-    //        onAccepted: {
-    //            showAndResetDetailsPage();
-    //            controller.geocacheSelected(fullList[selectedIndex].cache);
-    //        }
-    //    }
-
-
-
+    FileReader {
+        id: file_reader;
+    }
 }

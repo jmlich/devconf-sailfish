@@ -36,7 +36,7 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: inFavorites ?
-                          //% "Remove from favorites
+                          //% "Remove from favorites"
                           qsTrId("event-detail-remove-from-favorites") :
                           //% "Add to favorites"
                           qsTrId ("event-detail-add-to-favorites")

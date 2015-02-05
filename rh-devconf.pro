@@ -37,7 +37,8 @@ OTHER_FILES += qml/rh-devconf.qml \
     qml/images/noimage-loading.png \
     qml/images/noimage-disabled.png \
     qml/images/noimage-cantload.png \
-    qml/PhotoDetailPage.qml
+    qml/PhotoDetailPage.qml \
+    qml/PlaceDetailPage.qml
 
 HEADERS += \
     src/filereader.h \

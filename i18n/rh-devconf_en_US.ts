@@ -63,8 +63,9 @@
         <translation>About</translation>
     </message>
     <message id="map-title">
-        <source>Map</source>
-        <translation>Map</translation>
+        <source>Places</source>
+        <oldsource>Map</oldsource>
+        <translation>Places</translation>
     </message>
     <message id="section-header-schedule">
         <source>Schedule</source>
@@ -102,10 +103,6 @@
         <source>Loading ...</source>
         <translation>Loading ...</translation>
     </message>
-    <message id="section-about-map">
-        <source>Map</source>
-        <translation>Map</translation>
-    </message>
     <message id="event-detail-remove-from-favorites">
         <source>Remove from favorites</source>
         <translation>Remove from favorites</translation>
@@ -121,6 +118,30 @@
     <message id="schedule-page-header-favorites">
         <source>Favorites</source>
         <translation>Favorites</translation>
+    </message>
+    <message id="section-about-places">
+        <source>Places</source>
+        <translation>Places</translation>
+    </message>
+    <message id="map-page-list">
+        <source>List</source>
+        <translation>List</translation>
+    </message>
+    <message id="map-page-map">
+        <source>Map</source>
+        <translation>Map</translation>
+    </message>
+    <message id="place-detail-menu-navigate-to">
+        <source>Navigate to</source>
+        <translation>Navigate to</translation>
+    </message>
+    <message id="place-detail-menu-show-on-map">
+        <source>Show on map</source>
+        <translation>Show on map</translation>
+    </message>
+    <message id="place-detail-header-place">
+        <source>Place</source>
+        <translation>Place</translation>
     </message>
 </context>
 </TS>
