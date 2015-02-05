@@ -18,6 +18,8 @@ BackgroundItem {
         id: startTimeLabel
         text: F.format_time(startTime);
         font.pixelSize: Theme.fontSizeTiny;
+        font.family: Theme.fontFamily
+
         color: scheduleDelegate.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
         anchors.left: parent.left;
         anchors.top: parent.top;
@@ -28,6 +30,7 @@ BackgroundItem {
         id: endTimeLabel
         text: F.format_time(endTime);
         font.pixelSize: Theme.fontSizeTiny;
+        font.family: Theme.fontFamily
         color: scheduleDelegate.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
         anchors.left: parent.left;
         anchors.top: startTimeLabel.bottom

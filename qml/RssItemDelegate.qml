@@ -48,6 +48,8 @@ BackgroundItem {
         color: delegate.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor;
         wrapMode: Text.Wrap;
         font.pixelSize: Theme.fontSizeSmall
+        font.family: Theme.fontFamily
+
 
         textFormat: Text.RichText;
 
@@ -70,6 +72,8 @@ BackgroundItem {
         color: delegate.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor;
         wrapMode: Text.Wrap;
         font.pixelSize: Theme.fontSizeMedium
+        font.family: Theme.fontFamily
+
         text: F.format_time_full(date);
     }
 

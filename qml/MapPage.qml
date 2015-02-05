@@ -80,6 +80,8 @@ Page {
                         verticalAlignment: Text.AlignVCenter;
                         color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
                         font.pixelSize: Theme.fontSizeMedium
+                        font.family: Theme.fontFamily
+
                         wrapMode: Text.Wrap;
                         text: model.name;
                     }

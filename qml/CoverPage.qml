@@ -65,6 +65,8 @@ CoverBackground {
                     anchors.right: parent.right
 
                     font.pixelSize: Theme.fontSizeExtraSmall
+                    font.family: Theme.fontFamily
+
                     text: F.format_time(model.event_start) + ": " + model.speakers_0 + model.topic;
                     color: model.room_color
                     truncationMode: TruncationMode.Fade;

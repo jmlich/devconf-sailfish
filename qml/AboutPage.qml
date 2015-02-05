@@ -31,6 +31,7 @@ Page {
                 id: contentLabel
                 wrapMode: Text.Wrap;
                 font.pixelSize: Theme.fontSizeSmall
+                font.family: Theme.fontFamily
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.margins: Theme.paddingLarge;

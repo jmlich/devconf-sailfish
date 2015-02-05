@@ -45,6 +45,8 @@ Page {
 
                         color: aboutDelegate.highlighted ? Theme.highlightColor : Theme.primaryColor;
                         wrapMode: Text.Wrap;
+
+                        font.family: Theme.fontFamily
                         font.pixelSize: Theme.fontSizeMedium
 
                     }
@@ -52,6 +54,7 @@ Page {
                         aboutPage.title = model.title;
                         aboutPage.text = model.text;
                         pageStack.push(aboutPage);
+
                     }
 
                 }
@@ -94,6 +97,7 @@ Page {
 
                     color: mapDelegate.highlighted ? Theme.highlightColor : Theme.primaryColor
                     wrapMode: Text.Wrap;
+                    font.family: Theme.fontFamily
                     font.pixelSize: Theme.fontSizeMedium
 
                 }
@@ -146,7 +150,9 @@ Page {
                     color: favoritesDelegate.highlighted ? Theme.highlightColor : Theme.primaryColor;
 
                     wrapMode: Text.Wrap;
-                    font.pixelSize: Theme.fontSizeMedium
+                    font.pixelSize: Theme.fontSizeMedium;
+                    font.family: Theme.fontFamily;
+
 
                 }
                 onClicked: {

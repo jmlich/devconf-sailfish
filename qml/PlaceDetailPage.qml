@@ -72,6 +72,8 @@ Page {
             color: Theme.primaryColor
             verticalAlignment: Text.AlignVCenter;
             font.pixelSize: Theme.fontSizeLarge;
+            font.family: Theme.fontFamily
+
 
         }
 
@@ -84,6 +86,8 @@ Page {
             color: Theme.secondaryColor
             wrapMode: Text.Wrap;
             font.pixelSize: Theme.fontSizeMedium;
+            font.family: Theme.fontFamily
+
             textFormat: Text.RichText;
             text: "<style type='text/css'>a:link{color:"+Theme.primaryColor+"; } a:visited{color:"+Theme.primaryHighlightColor+"}</style>  "+ description
             onLinkActivated: {

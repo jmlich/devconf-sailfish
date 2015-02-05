@@ -140,6 +140,8 @@ Page {
                         text: model.name
                         color: Theme.primaryColor
                         font.pixelSize: Theme.fontSizeMedium
+                        font.family: Theme.fontFamily
+
                         wrapMode: Text.WordWrap
 
                     }
@@ -153,6 +155,8 @@ Page {
                         text: model.company
                         color: Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeSmall
+                        font.family: Theme.fontFamily
+
                         wrapMode: Text.WordWrap
 
                     }
@@ -165,6 +169,7 @@ Page {
                         text: model.position
                         color: Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeSmall
+                        font.family: Theme.fontFamily
                         wrapMode: Text.WordWrap
 
                     }
