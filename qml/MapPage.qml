@@ -112,7 +112,7 @@ Page {
             anchors.bottom: parent.bottom;
             clip: true;
             visible: map_visible;
-            pageActive: map_visible && (page.status === PageStatus.Active)
+            pageActive: map_visible && (page.status !== PageStatus.Inactive)
 
             onMapItemClicked: {
 
