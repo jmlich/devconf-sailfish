@@ -11,7 +11,7 @@
         <source>No running event</source>
         <translation>Neběží žádná přednáška</translation>
     </message>
-    <message id="cover-no-upcomming-event">
+    <message id="cover-no-upcoming-event">
         <source>See you next year</source>
         <translation>Tak zase za rok</translation>
     </message>
@@ -72,8 +72,8 @@
         <source>Schedule</source>
         <translation>Program</translation>
     </message>
-    <message id="section-header-upcomming-talks">
-        <source>Upcomming talks</source>
+    <message id="section-header-upcoming-talks">
+        <source>Upcoming talks</source>
         <translation>Následující přednášky</translation>
     </message>
     <message id="section-header-news">

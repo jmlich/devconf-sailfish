@@ -10,6 +10,7 @@ Page {
     property int filter_end;
     property bool filter_favorites: false;
     property string dayName;
+    property int currentTime: Math.floor(new Date().getTime()/1000)
 
     onFilter_startChanged: {
         var date = new Date(filter_start* 1000);
@@ -29,6 +30,13 @@ Page {
                        qsTrId("schedule-page-header-favorites") :
                        dayName
         }
+        section.property: filter_favorites ? "event_day" : "";
+        section.criteria: ViewSection.FullString;
+
+        section.delegate: SectionHeader {
+            text: section;
+        }
+
         delegate: ScheduleDelegate {
             startTime: model.event_start;
             endTime: model.event_end;
@@ -36,6 +44,7 @@ Page {
             roomColor:  model.room_color;
             speakers_str: model.speakers_str;
             topic: model.topic
+            currentTimestamp: currentTime;
 
 
             onClicked: {
@@ -44,6 +53,7 @@ Page {
                 eventDetailPage.description = model.description
                 eventDetailPage.startTime = F.format_time(parseInt(model.event_start, 10));
                 eventDetailPage.endTime = F.format_time(parseInt(model.event_end, 10));
+                eventDetailPage.startDay = model.event_day;
                 eventDetailPage.room = model.room;
                 eventDetailPage.roomColor = model.room_color
                 eventDetailPage.hash = model.hash;
@@ -103,9 +113,12 @@ Page {
         var sessions = d.sessions
         eventModel.clear();
         for (var i = 0; i < sessions.length; i++) {
-            sessions[i].speakers_str = F.make_speakers_str(sessions[i].speakers);
-            sessions[i].speakers = JSON.stringify(sessions[i].speakers)
-            eventModel.append(sessions[i])
+            var item = sessions[i]
+            var dayInt = new Date(parseInt(item.event_start, 10) * 1000).getDay();
+            item.event_day = F.dayOfWeek(dayInt)
+            item.speakers_str = F.make_speakers_str(item.speakers);
+            item.speakers = JSON.stringify(item.speakers)
+            eventModel.append(item)
         }
 
     }
@@ -156,6 +169,14 @@ Page {
     }
 
 
+    Timer {
+        repeat: true;
+        running: true;
+        interval: 120000;
+        onTriggered: {
+            currentTime = Math.floor(new Date().getTime()/1000);
+        }
+    }
 
 
 }

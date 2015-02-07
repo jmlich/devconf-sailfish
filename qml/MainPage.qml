@@ -164,8 +164,8 @@ Page {
             }
 
             SectionHeader {
-                //% "Upcomming talks"
-                text: qsTrId("section-header-upcomming-talks")
+                //% "Upcoming talks"
+                text: qsTrId("section-header-upcoming-talks")
                 visible: (currentEvents.count > 0)
             }
 
@@ -186,6 +186,7 @@ Page {
                         eventDetailPage.description = model.description
                         eventDetailPage.startTime = F.format_time(model.event_start);
                         eventDetailPage.endTime = F.format_time(model.event_end);
+                        eventDetailPage.startDay = model.event_day;
                         eventDetailPage.room = model.room;
                         eventDetailPage.roomColor = model.room_color
                         eventDetailPage.um.clear()
@@ -280,12 +281,14 @@ Page {
         for (var i = 0; i < sessions.length; i++) {
             var item = sessions[i];
             if (item.event_start > now) {
-                sessions[i].speakers_str = F.make_speakers_str(sessions[i].speakers);
-                sessions[i].speakers = JSON.stringify(sessions[i].speakers)
-                currentEvents.append(sessions[i])
+                var dayInt = new Date(parseInt(item.event_start, 10) * 1000).getDay();
+                item.event_day = F.dayOfWeek(dayInt)
+                item.speakers_str = F.make_speakers_str(item.speakers);
+                item.speakers = JSON.stringify(item.speakers)
+                currentEvents.append(item)
                 j++;
             }
-            if (j >= 6) {
+            if (j >= 8) {
                 break;
             }
         }

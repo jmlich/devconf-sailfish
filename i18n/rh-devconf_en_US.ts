@@ -11,7 +11,7 @@
         <source>No running event</source>
         <translation>No running event</translation>
     </message>
-    <message id="cover-no-upcomming-event">
+    <message id="cover-no-upcoming-event">
         <source>See you next year</source>
         <translation>See you next year</translation>
     </message>
@@ -71,9 +71,9 @@
         <source>Schedule</source>
         <translation>Schedule</translation>
     </message>
-    <message id="section-header-upcomming-talks">
-        <source>Upcomming talks</source>
-        <translation>Upcomming talks</translation>
+    <message id="section-header-upcoming-talks">
+        <source>Upcoming talks</source>
+        <translation>Upcoming talks</translation>
     </message>
     <message id="section-header-news">
         <source>News</source>

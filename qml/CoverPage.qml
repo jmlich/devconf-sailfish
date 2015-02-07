@@ -8,7 +8,7 @@ CoverBackground {
     property real coundownTarget
     property bool now_true_next_false: true;
     property alias currentEventsModelAlias: currentEventsModel
-    property alias upcommingEventsModelAlias: upcommingEventsModel
+    property alias upcomingEventsModelAlias: upcomingEventsModel
 
     signal forceUpdateDataSource();
 
@@ -42,9 +42,9 @@ CoverBackground {
         anchors.fill: parent;
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.Wrap
-        visible: !countdownText.visible && !now_true_next_false && (upcommingEventsModel.count == 0)
+        visible: !countdownText.visible && !now_true_next_false && (upcomingEventsModel.count == 0)
         //% "See you next year"
-        text: qsTrId("cover-no-upcomming-event")
+        text: qsTrId("cover-no-upcoming-event")
     }
 
 
@@ -53,7 +53,7 @@ CoverBackground {
         anchors.fill: parent;
 
         Repeater {
-            model: now_true_next_false ? currentEventsModel : upcommingEventsModel
+            model: now_true_next_false ? currentEventsModel : upcomingEventsModel
             delegate: Item {
                 width: page.width
                 height: eventItem.paintedHeight
@@ -79,7 +79,7 @@ CoverBackground {
     }
 
     ListModel {
-        id: upcommingEventsModel;
+        id: upcomingEventsModel;
     }
 
     ListModel {
@@ -135,7 +135,7 @@ CoverBackground {
 
     function updateFilter() {
         currentEventsModel.clear();
-        upcommingEventsModel.clear();
+        upcomingEventsModel.clear();
         var now = Math.floor(new Date().getTime()/1000);
 
         var counter = 0;
@@ -145,7 +145,7 @@ CoverBackground {
                 currentEventsModel.append(item)
             }
             if (item.event_start > now && item.event_end > now) {
-                upcommingEventsModel.append(item)
+                upcomingEventsModel.append(item)
                 counter++;
                 if (counter > 5) {
                     break;

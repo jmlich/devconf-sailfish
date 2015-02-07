@@ -11,6 +11,7 @@ Page {
     property alias talkName: talkNameLabel.text
     property alias description: descriptionLabel.text
 
+    property string startDay;
     property string startTime
     property string endTime
     property alias room: roomLabel.text
@@ -88,7 +89,7 @@ Page {
                 anchors.right: parent.right
                 anchors.margins: Theme.paddingMedium;
                 color: Theme.secondaryColor
-                text: startTime + " - " + endTime
+                text: startDay + " " + startTime + " - " + endTime
 
             }
 

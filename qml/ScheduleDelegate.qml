@@ -5,14 +5,15 @@ import "functions.js" as F
 BackgroundItem {
 
     id: scheduleDelegate
-    height: Math.max(startTimeLabel.height + endTimeLabel.height + Theme.paddingMedium, roomLabel.height, topicLabel.height) + 2 * Theme.paddingMedium
+    height: Math.max(startTimeLabel.height + endTimeLabel.height + roomLabel.height + Theme.paddingMedium, roomLabel.height, topicLabel.height) + 2 * Theme.paddingMedium
 
     property int startTime;
     property int endTime;
-    property string roomShort;
-    property alias roomColor: roomLabel.color;
+    property alias roomShort: roomLabel.text
+    property alias roomColor: roomColorLabel.color;
     property string speakers_str;
     property string topic;
+    property int currentTimestamp;
 
     Label {
         id: startTimeLabel
@@ -39,7 +40,19 @@ BackgroundItem {
     }
 
     Label {
-        id: roomLabel
+        id: roomLabel;
+        font.pixelSize: Theme.fontSizeTiny;
+        font.family: Theme.fontFamily
+
+        color: scheduleDelegate.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
+        anchors.left: parent.left;
+        anchors.top: endTimeLabel.bottom;
+        anchors.margins: Theme.paddingMedium
+
+    }
+
+    Label {
+        id: roomColorLabel
         anchors.left: startTimeLabel.right
         anchors.top: parent.top;
         anchors.margins: Theme.paddingMedium
@@ -52,13 +65,15 @@ BackgroundItem {
 
     Label {
         id: topicLabel
-        anchors.left: roomLabel.right
+        anchors.left: roomColorLabel.right
         anchors.right: parent.right
         anchors.top: parent.top;
         anchors.margins: Theme.paddingMedium
 
         text: (speakers_str !== "") ? (speakers_str + ": " + topic) : topic
-        color: scheduleDelegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+        color: (currentTimestamp > endTime)
+               ? (scheduleDelegate.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor)
+                 : (scheduleDelegate.highlighted ? Theme.highlightColor : Theme.primaryColor)
         wrapMode: Text.Wrap;
         textFormat: Text.RichText;
     }

@@ -2,8 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import cz.mlich 1.0
 
-ApplicationWindow
-{
+ApplicationWindow {
     initialPage: mainPage
     cover: coverPage
 
