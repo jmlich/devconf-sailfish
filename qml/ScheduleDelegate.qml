@@ -9,7 +9,7 @@ BackgroundItem {
 
     property int startTime;
     property int endTime;
-    property alias roomShort: roomLabel.text
+    property alias roomShort: roomLabel.text;
     property alias roomColor: roomColorLabel.color;
     property string speakers_str;
     property string topic;

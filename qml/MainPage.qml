@@ -129,8 +129,8 @@ Page {
                     }
                     onClicked: {
                         schedulePage.filter_favorites = false;
-                        schedulePage.filter_start = timestamp
-                        schedulePage.filter_end = timestamp + 24 * 3600
+                        schedulePage.filter_start = parseInt(timestamp, 10)
+                        schedulePage.filter_end = parseInt(timestamp, 10) + 24 * 3600
                         schedulePage.updateFilter();
 
                         pageStack.push(schedulePage)
@@ -172,8 +172,8 @@ Page {
             Repeater {
                 model: currentEvents;
                 delegate: ScheduleDelegate {
-                    startTime: model.event_start;
-                    endTime: model.event_end;
+                    startTime: parseInt(model.event_start, 10);
+                    endTime: parseInt(model.event_end, 10);
                     roomShort: model.room_short;
                     roomColor:  model.room_color;
                     speakers_str: model.speakers_str;

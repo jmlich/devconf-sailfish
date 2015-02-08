@@ -91,7 +91,8 @@ Item {
 
     function check_updates() {
         console.log("check updates")
-        var url = "http://devconf.cz/wall/sched.org/?ts=1";
+        var url = "http://devconf.cz/wall/sched.org/?ts=1&lang="+Qt.locale().name;
+        console.log(url);
 
         var http = new XMLHttpRequest()
         http.open("GET", url, true)
@@ -130,7 +131,7 @@ Item {
     function download() {
         console.log("data download")
 
-        var url = "http://devconf.cz/wall/sched.org/?json";
+        var url = "http://devconf.cz/wall/sched.org/?json&lang="+Qt.locale().name;
 
 
         var http = new XMLHttpRequest()

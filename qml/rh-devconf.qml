@@ -54,8 +54,7 @@ ApplicationWindow {
     PlaceDetailPage {
         id: placesDetailPage;
         onShowOnMap: {
-            mapPage.mapWidget.latitude = lat;
-            mapPage.mapWidget.longitude = lon;
+            mapPage.mapWidget.setCenterLatLon(lat, lon);
             mapPage.map_visible = true;
             pageStack.pop();
 

@@ -21,12 +21,13 @@ Page {
 
     property string hash;
 
+    signal addToFavorites(string hash);
+    signal removeFromFavorites(string hash);
+
+
     ListModel {
         id: usersModel;
     }
-
-    signal addToFavorites(string hash);
-    signal removeFromFavorites(string hash);
 
 
     SilicaFlickable {
