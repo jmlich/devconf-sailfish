@@ -13,7 +13,7 @@ Name:       rh-devconf
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Developer Conference
-Version:    0.9
+Version:    1.0
 Release:    1
 Group:      Qt/Qt
 License:    BSD

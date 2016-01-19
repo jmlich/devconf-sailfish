@@ -148,5 +148,17 @@
         <source>Show current position</source>
         <translation>Zobrazit současnou polohu</translation>
     </message>
+    <message id="open-feedback-form">
+        <source>Leave your feedback here</source>
+        <translation>Dejte nám zpětnou vazbu</translation>
+    </message>
+    <message id="switch-to-list-view">
+        <source>List View</source>
+        <translation>Zobrazit seznam</translation>
+    </message>
+    <message id="switch-to-grid-view">
+        <source>Grid View</source>
+        <translation>Zobrazit mřížku</translation>
+    </message>
 </context>
 </TS>

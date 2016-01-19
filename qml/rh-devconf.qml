@@ -54,6 +54,7 @@ ApplicationWindow {
     PlaceDetailPage {
         id: placesDetailPage;
         onShowOnMap: {
+            mapPage.mapWidget.setZoomLevel(15)
             mapPage.mapWidget.setCenterLatLon(lat, lon);
             mapPage.map_visible = true;
             pageStack.pop();

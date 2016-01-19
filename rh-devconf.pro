@@ -74,3 +74,6 @@ CODECFORTR = UTF-8
 CODECFORSRC = UTF-8
 
 QT += positioning
+
+DISTFILES += \
+    qml/ScheduleGridDelegate.qml

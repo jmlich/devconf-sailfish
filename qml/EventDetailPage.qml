@@ -52,11 +52,18 @@ Page {
                 }
 
             }
-//            MenuItem {
-//                text:
-//                    //% "Add to calendar";
-//                    qsTrId ("event-detail-add-to-calendar")
-//            }
+            //            MenuItem {
+            //                text:
+            //                    //% "Add to calendar";
+            //                    qsTrId ("event-detail-add-to-calendar")
+            //            }
+            MenuItem {
+                //% "Leave your feedback here"
+                text: qsTrId("open-feedback-form")
+                onClicked: {
+                    Qt.openUrlExternally("http://www.devconf.cz/feedback/"+hash)
+                }
+            }
         }
 
 
@@ -109,7 +116,7 @@ Page {
                 model: usersModel;
                 delegate: BackgroundItem{
 
-                    height: Math.max(avatarImage.paintedHeight, nameLabel.paintedHeight + companyLabel.paintedHeight + positionLabel.paintedHeight + 2*Theme.paddingMedium) + 2 * Theme.paddingMedium
+                    height: Math.max(avatarImage.height, nameLabel.paintedHeight + companyLabel.paintedHeight + positionLabel.paintedHeight + 2*Theme.paddingMedium) + 2 * Theme.paddingMedium
 
 
                     Image {

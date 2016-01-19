@@ -147,5 +147,17 @@
         <source>Show current position</source>
         <translation>Show current position</translation>
     </message>
+    <message id="open-feedback-form">
+        <source>Leave your feedback here</source>
+        <translation>Leave your feedback here</translation>
+    </message>
+    <message id="switch-to-list-view">
+        <source>List View</source>
+        <translation>List View</translation>
+    </message>
+    <message id="switch-to-grid-view">
+        <source>Grid View</source>
+        <translation>Grid View</translation>
+    </message>
 </context>
 </TS>
