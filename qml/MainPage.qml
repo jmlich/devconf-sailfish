@@ -91,7 +91,7 @@ Page {
 //                visible: false;
                 Label {
                     x: Theme.paddingLarge
-                    //% "Places"
+                    //% "Important Places"
                     text: qsTrId("section-about-places")
                     anchors.verticalCenter: parent.verticalCenter
 

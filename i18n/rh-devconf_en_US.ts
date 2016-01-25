@@ -120,8 +120,9 @@
         <translation>Favorites</translation>
     </message>
     <message id="section-about-places">
-        <source>Places</source>
-        <translation>Places</translation>
+        <source>Important Places</source>
+        <oldsource>Places</oldsource>
+        <translation>Important Places</translation>
     </message>
     <message id="map-page-list">
         <source>List</source>

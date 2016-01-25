@@ -110,7 +110,7 @@ Page {
 
                 startTime: model.event_start;
                 endTime: model.event_end;
-//                roomShort: model.room_short;
+                //                roomShort: model.room_short;
                 roomColor:  model.room_color;
                 speakers_str: model.speakers_str;
                 topic: model.topic
@@ -243,6 +243,11 @@ Page {
                     }
                     filteredEventModel.append(item)
                 }
+            }
+            if (filteredEventModel.count == 0) {
+                //                console.error("favoritesModel " + JSON.stringify(favoritesModel));
+                favoritesModel = [];
+                saveFavorites(favoritesModel);
             }
 
         } else { // filter according to time

@@ -121,8 +121,9 @@
         <translation>Oblíbené</translation>
     </message>
     <message id="section-about-places">
-        <source>Places</source>
-        <translation>Místa</translation>
+        <source>Important Places</source>
+        <oldsource>Places</oldsource>
+        <translation>Důležité místa</translation>
     </message>
     <message id="map-page-list">
         <source>List</source>
